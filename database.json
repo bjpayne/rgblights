@@ -1,0 +1,17 @@
+{
+  "users": {
+    "teamb": {
+      "name": "Team B",
+      "lights": {
+        "light_1": "#FFFFFF",
+        "light_2": "#FFFFFF",
+        "light_3": "#FFFFFF",
+        "light_4": "#FFFFFF",
+        "light_5": "#FFFFFF",
+        "light_6": "#FFFFFF",
+        "light_7": "#FFFFFF",
+        "light_8": "#FFFFFF"
+      }
+    }
+  }
+}
