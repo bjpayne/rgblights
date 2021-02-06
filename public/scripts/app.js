@@ -12,7 +12,6 @@ firebase.initializeApp({
 // Get a reference to the lights object
 let lights = firebase.database().ref('users/teamb/lights/');
 
-
 new Vue({
     el: "#app",
     data: {
@@ -67,5 +66,25 @@ new Vue({
             return style;
         },
     },
+});
+
+$(function () {
+    $('.light').draggable({snap: '.light'});
+
+    var canvas = document.getElementById('canvas');
+
+    if (canvas.getContext) {
+        var ctx = canvas.getContext('2d');
+
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(100, 100);
+        ctx.lineTo(0, 100);
+        ctx.rotate(45);
+        ctx.fillStyle = "#f00";
+        ctx.fill();
+    }
+
+    $(canvas).draggable({snap: '.light'});
 });
 
