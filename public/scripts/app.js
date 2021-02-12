@@ -12,18 +12,42 @@ firebase.initializeApp({
 // Get a reference to the lights object
 let lights = firebase.database().ref('users/teamb/lights/');
 
-new Vue({
+let app = new Vue({
     el: "#app",
     data: {
         lights: {
-            light_1: "",
-            light_2: "",
-            light_3: "",
-            light_4: "",
-            light_5: "",
-            light_6: "",
-            light_7: "",
-            light_8: "",
+            light_1: {
+                color: "",
+                active: false
+            },
+            light_2: {
+                color: "",
+                active: false
+            },
+            light_3: {
+                color: "",
+                active: false
+            },
+            light_4: {
+                color: "",
+                active: false
+            },
+            light_5: {
+                color: "",
+                active: false
+            },
+            light_6: {
+                color: "",
+                active: false
+            },
+            light_7: {
+                color: "",
+                active: false
+            },
+            light_8: {
+                color: "",
+                active: false,
+            },
         }
     },
     mounted: function () {
@@ -34,8 +58,44 @@ new Vue({
                 for (let i = 1; i <= 8; i++) {
                     let light = "light_"+i;
 
-                    app.lights[light] = snapshot.val()[light];
+                    app.lights[light].color = snapshot.val()[light];
                 }
+
+                let lightElements = $('.light');
+
+                lightElements.draggable({snap: '.light'});
+
+                // let canvas = $('#canvas');
+                //
+                // canvas.attr("width", canvas.width());
+                // canvas.attr("height", canvas.height());
+                //
+                // let stage = new createjs.Stage(canvas.get(0));
+                //
+                // let x = 500, y = 100;
+                //
+                // for (const light in app.lights) {
+                //     let shape = new createjs.Shape();
+                //
+                //     let color = app.lights[light];
+                //
+                //     shape.graphics.beginFill(color)
+                //         .drawPolyStar(x, y, 100, 3, 0, -90);
+                //
+                //     stage.addChild(shape);
+                //
+                //     shape.on("pressmove",function(evt) {
+                //         // currentTarget will be the container that the event listener was added to:
+                //         evt.currentTarget.x = evt.stageX;
+                //         evt.currentTarget.y = evt.stageY;
+                //         // make sure to redraw the stage to show the change:
+                //         stage.update();
+                //     });
+                //
+                //     y += 100;
+                //
+                //     stage.update();
+                // }
             });
 
             lights.on('child_changed', (data) => {
@@ -61,30 +121,10 @@ new Vue({
             // Check contrast
             let color = (yiq >= 128) ? '#000' : '#fff';
 
-            let style = "background: #"+background+"; color: "+color;
+            let style = "border-bottom-color: #"+background+"; color: "+color;
 
             return style;
         },
     },
-});
-
-$(function () {
-    $('.light').draggable({snap: '.light'});
-
-    var canvas = document.getElementById('canvas');
-
-    if (canvas.getContext) {
-        var ctx = canvas.getContext('2d');
-
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(100, 100);
-        ctx.lineTo(0, 100);
-        ctx.rotate(45);
-        ctx.fillStyle = "#f00";
-        ctx.fill();
-    }
-
-    $(canvas).draggable({snap: '.light'});
 });
 

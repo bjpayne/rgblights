@@ -1,1 +1,29 @@
-.light { margin-bottom: 20px;}
+html, body {
+    background: #888888;
+    height: 100%;
+    width: 100%;
+}
+
+#lights { margin: 10px }
+
+.light {
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-bottom: 100px solid transparent;
+    position: relative;
+    height: 0;
+    width: 0;
+}
+
+.light::before {
+    content: attr(data-name);
+    font-size: 2em;
+    left: -10px;
+    position: absolute;
+    top: 35px;
+}
+
+#controls {
+    padding: 30px 20px;
+}
+

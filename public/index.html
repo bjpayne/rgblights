@@ -12,16 +12,32 @@
 
     <!-- App -->
     <link rel="stylesheet" href="styles/app.css">
+
+    <!-- Fontawesome -->
+    <script src="https://kit.fontawesome.com/076ef4e30d.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="app">
-    <div class="alert light" role="alert" v-for="(backgroundColor, index) in lights"
-         :style="lightStyle(backgroundColor)"
-    >
-        Light {{ index.substr(-1) }}
+<div id="app" class="h-100 w-100 d-flex">
+    <div id="lights" class="h-100 w-100">
+        <div class="light"
+             v-for="(light, index) in lights" :data-name="index.substr(-1)"
+             :style="lightStyle(light.color)"
+        ></div>
     </div>
-
-    <canvas id="canvas" width="100" height="100"></canvas>
+    <div id="controls" class="h-100 w-25">
+        <label class="w-100">
+            Light:
+            <select name="lights" class="form-control form-control-sm w-100">
+                <option v-for="(color, light) in lights">
+                    Light {{ light.substr(-1) }}
+                </option>
+            </select>
+        </label>
+        <label>
+            Control:
+            <i class="fas fa-sync-alt"></i>
+        </label>
+    </div>
 </div>
 
 <!-- jQuery -->
@@ -32,7 +48,7 @@
         integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
         crossorigin="anonymous"></script>
 
-<!-- Bootstrap -->
+<!-- Bootstrap JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
@@ -48,6 +64,9 @@
 
 <!-- Vue -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+
+<!-- Easeljs -->
+<script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
 
 <!-- App -->
 <script src="scripts/app.js"></script>
