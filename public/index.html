@@ -27,7 +27,7 @@
     <div id="controls" class="h-100 w-25">
         <label class="w-100">
             Light:
-            <select name="lights" class="form-control form-control-sm w-100">
+            <select name="lights" class="form-control form-control-sm w-100" v-model="light.active">
                 <option v-for="(color, light) in lights">
                     Light {{ light.substr(-1) }}
                 </option>

@@ -18,35 +18,43 @@ let app = new Vue({
         lights: {
             light_1: {
                 color: "",
-                active: false
+                active: false,
+                rotation: 0
             },
             light_2: {
                 color: "",
-                active: false
+                active: false,
+                rotation: 0
             },
             light_3: {
                 color: "",
-                active: false
+                active: false,
+                rotation: 0
             },
             light_4: {
                 color: "",
-                active: false
+                active: false,
+                rotation: 0
             },
             light_5: {
                 color: "",
-                active: false
+                active: false,
+                rotation: 0
             },
             light_6: {
                 color: "",
-                active: false
+                active: false,
+                rotation: 0
             },
             light_7: {
                 color: "",
-                active: false
+                active: false,
+                rotation: 0
             },
             light_8: {
                 color: "",
                 active: false,
+                rotation: 0
             },
         }
     },
