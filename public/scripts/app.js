@@ -107,7 +107,7 @@ let app = new Vue({
             });
 
             lights.on('child_changed', (data) => {
-                app.lights[data.key] = data.val();
+                app.lights[data.key].color = data.val();
             });
         });
     },
