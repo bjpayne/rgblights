@@ -72,38 +72,6 @@ let app = new Vue({
                 let lightElements = $('.light');
 
                 lightElements.draggable({snap: '.light'});
-
-                // let canvas = $('#canvas');
-                //
-                // canvas.attr("width", canvas.width());
-                // canvas.attr("height", canvas.height());
-                //
-                // let stage = new createjs.Stage(canvas.get(0));
-                //
-                // let x = 500, y = 100;
-                //
-                // for (const light in app.lights) {
-                //     let shape = new createjs.Shape();
-                //
-                //     let color = app.lights[light];
-                //
-                //     shape.graphics.beginFill(color)
-                //         .drawPolyStar(x, y, 100, 3, 0, -90);
-                //
-                //     stage.addChild(shape);
-                //
-                //     shape.on("pressmove",function(evt) {
-                //         // currentTarget will be the container that the event listener was added to:
-                //         evt.currentTarget.x = evt.stageX;
-                //         evt.currentTarget.y = evt.stageY;
-                //         // make sure to redraw the stage to show the change:
-                //         stage.update();
-                //     });
-                //
-                //     y += 100;
-                //
-                //     stage.update();
-                // }
             });
 
             lights.on('child_changed', (data) => {
@@ -132,7 +100,23 @@ let app = new Vue({
             let style = "border-bottom-color: #"+background+"; color: "+color;
 
             return style;
-        },
+        }
     },
+    watch: {
+        lights: {
+            handler: function (newValue, oldValue) {
+                let lightColors = {};
+
+                for (let light in app.lights) {
+                    if (app.lights.hasOwnProperty(light)) {
+                        lightColors[light] = app.lights[light].color;
+                    }
+                }
+
+                lights.set(lightColors);
+            },
+            deep: true
+        }
+    }
 });
 
