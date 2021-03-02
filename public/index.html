@@ -19,23 +19,23 @@
 <body>
 <div id="app" class="h-100 w-100 d-flex">
     <div id="lights" class="h-100 w-100">
-        <div class="light"
+        <div class="light" @click="activeLight = index"
              v-for="(light, index) in lights" :data-name="index.substr(-1)"
-             :style="lightStyle(light.color)"
+             :style="lightStyle(light)" :class="{rotated: light.rotated}"
         ></div>
     </div>
     <div id="controls" class="h-100 w-25">
         <label class="w-100">
             Light:
-            <select name="lights" class="form-control form-control-sm w-100">
-                <option v-for="(light, index) in lights">
+            <select name="lights" class="form-control form-control-sm w-100" v-model="activeLight">
+                <option v-for="(light, index) in lights" :value="index">
                     Light {{ index.substr(-1) }}
                 </option>
             </select>
         </label>
-        <label>
+        <label v-if="activeLight">
             Control:
-            <i class="fas fa-sync-alt"></i>
+            <i class="fas fa-sync-alt" @click="lights[activeLight].rotated = ! lights[activeLight].rotated"></i>
         </label>
     </div>
 </div>

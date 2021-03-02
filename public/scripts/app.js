@@ -15,46 +15,55 @@ let lights = firebase.database().ref('users/teamb/lights/');
 let app = new Vue({
     el: "#app",
     data: {
+        activeLight: "",
         lights: {
             light_1: {
                 color: "",
-                active: false,
-                rotation: 0
+                left: "",
+                top: "",
+                rotated: false
             },
             light_2: {
                 color: "",
-                active: false,
-                rotation: 0
+                left: "",
+                top: "",
+                rotated: false
             },
             light_3: {
                 color: "",
-                active: false,
-                rotation: 0
+                left: "",
+                top: "",
+                rotated: false
             },
             light_4: {
                 color: "",
-                active: false,
-                rotation: 0
+                left: "",
+                top: "",
+                rotated: false
             },
             light_5: {
                 color: "",
-                active: false,
-                rotation: 0
+                left: "",
+                top: "",
+                rotated: false
             },
             light_6: {
                 color: "",
-                active: false,
-                rotation: 0
+                left: "",
+                top: "",
+                rotated: false
             },
             light_7: {
                 color: "",
-                active: false,
-                rotation: 0
+                left: "",
+                top: "",
+                rotated: false
             },
             light_8: {
                 color: "",
-                active: false,
-                rotation: 0
+                left: "",
+                top: "",
+                rotated: false
             },
         }
     },
@@ -66,21 +75,29 @@ let app = new Vue({
                 for (let i = 1; i <= 8; i++) {
                     let light = "light_"+i;
 
-                    app.lights[light].color = snapshot.val()[light];
+                    app.lights[light] = snapshot.val()[light];
                 }
 
                 let lightElements = $('.light');
 
-                lightElements.draggable({snap: '.light'});
-            });
+                lightElements.draggable({
+                    grid: [10, 10],
+                    stop: function (event) {
+                        let target = $(event.target);
 
-            lights.on('child_changed', (data) => {
-                app.lights[data.key].color = data.val();
+                        let light = "light_"+target.data('name');
+
+                        app.lights[light].top = target.prop('style').top;
+                        app.lights[light].left = target.prop('style').left;
+                    }
+                });
             });
         });
     },
     methods: {
-        lightStyle: function (background) {
+        lightStyle: function (light) {
+            let background = light.color;
+
             // If a leading # is provided, remove it
             if (background.slice(0, 1) === '#') {
                 background = background.slice(1);
@@ -99,21 +116,20 @@ let app = new Vue({
 
             let style = "border-bottom-color: #"+background+"; color: "+color;
 
+            style += "; top: ";
+            style += light.top;
+            style += "; ";
+            style += "left: ";
+            style += light.left;
+            style += ";";
+
             return style;
-        }
+        },
     },
     watch: {
         lights: {
-            handler: function (newValue, oldValue) {
-                let lightColors = {};
-
-                for (let light in app.lights) {
-                    if (app.lights.hasOwnProperty(light)) {
-                        lightColors[light] = app.lights[light].color;
-                    }
-                }
-
-                lights.set(lightColors);
+            handler: function () {
+                lights.set(app.lights);
             },
             deep: true
         }

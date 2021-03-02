@@ -10,7 +10,7 @@ html, body {
     border-left: 100px solid transparent;
     border-right: 100px solid transparent;
     border-bottom: 100px solid transparent;
-    position: relative;
+    position: absolute;
     height: 0;
     width: 0;
 }
@@ -22,6 +22,8 @@ html, body {
     position: absolute;
     top: 35px;
 }
+
+.light.rotated { transform: rotate(180deg) }
 
 #controls {
     padding: 30px 20px;
