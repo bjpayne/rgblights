@@ -9,7 +9,8 @@ html, body {
 .light {
     border-left: 100px solid transparent;
     border-right: 100px solid transparent;
-    border-bottom: 100px solid transparent;
+    border-bottom: 173.2px solid transparent;
+    border-top: 0 solid transparent;
     position: absolute;
     height: 0;
     width: 0;
@@ -20,7 +21,7 @@ html, body {
     font-size: 2em;
     left: -10px;
     position: absolute;
-    top: 35px;
+    top: 75px;
 }
 
 .light.rotated { transform: rotate(180deg) }
