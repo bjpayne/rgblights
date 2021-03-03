@@ -15,6 +15,7 @@ let lights = firebase.database().ref('users/teamb/lights/');
 let app = new Vue({
     el: "#app",
     data: {
+		initializing: true,
         activeLight: "light_1",
         lights: {
             light_1: {
@@ -78,6 +79,8 @@ let app = new Vue({
                     app.lights[light] = snapshot.val()[light];
                 }
 
+				app.initializing = false;
+
                 let lightElements = $('.light');
 
                 lightElements.draggable({
@@ -133,6 +136,9 @@ let app = new Vue({
     watch: {
         lights: {
             handler:_.debounce( function () {
+				if (app.initializing) {
+					return;
+				}
                 lights.set(app.lights);
             }, 500),
             deep: true
