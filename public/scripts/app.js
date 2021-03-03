@@ -15,7 +15,7 @@ let lights = firebase.database().ref('users/teamb/lights/');
 let app = new Vue({
     el: "#app",
     data: {
-        activeLight: "",
+        activeLight: "light_1",
         lights: {
             light_1: {
                 color: "",
@@ -125,12 +125,16 @@ let app = new Vue({
 
             return style;
         },
+
+		onColorChange:_.debounce( function (colorCode) {
+			this.lights[this.activeLight].color = colorCode;
+		}, 500)
     },
     watch: {
         lights: {
-            handler: function () {
+            handler:_.debounce( function () {
                 lights.set(app.lights);
-            },
+            }, 500),
             deep: true
         }
     }

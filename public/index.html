@@ -11,6 +11,7 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- App -->
+    <link rel="stylesheet" href="styles/main-background.css">
     <link rel="stylesheet" href="styles/app.css">
 
     <!-- Fontawesome -->
@@ -21,22 +22,34 @@
     <div id="lights" class="h-100 w-100">
         <div class="light" @click="activeLight = index"
              v-for="(light, index) in lights" :data-name="index.substr(-1)"
-             :style="lightStyle(light)" :class="{rotated: light.rotated}"
+             :style="lightStyle(light)" :class="{rotated: light.rotated, active: index===activeLight}"
         ></div>
     </div>
     <div id="controls" class="h-100 w-25">
-        <label class="w-100">
-            Light:
-            <select name="lights" class="form-control form-control-sm w-100" v-model="activeLight">
-                <option v-for="(light, index) in lights" :value="index">
-                    Light {{ index.substr(-1) }}
-                </option>
-            </select>
-        </label>
-        <label v-if="activeLight">
-            Control:
-            <i class="fas fa-sync-alt" @click="lights[activeLight].rotated = ! lights[activeLight].rotated"></i>
-        </label>
+		<div class="w-100 form-group row">
+			<label class="col-sm-2 col-form-label">
+				Light:
+			</label>
+			<div class="col-sm-10">
+				<div class="d-flex flex-row justify-content-between align-items-center">
+					<select name="lights" class="form-control" v-model="activeLight">
+						<option v-for="(light, index) in lights" :value="index">
+							Light {{ index.substr(-1) }}
+						</option>
+					</select>
+					<i class="fas fa-sync-alt" @click="lights[activeLight].rotated = ! lights[activeLight].rotated" :style="{visibility: activeLight ? 'visible' : 'hidden'}"></i>
+				</div>
+			</div>
+		</div>
+		<div v-if="activeLight">
+			<div id="ColorPicker">
+				<color-picker :width=300 :height=300 v-model="lights[activeLight].color"></color-picker>
+			</div>
+			<hr>
+			<div>
+				Color: {{lights[activeLight].color.toUpperCase()}}
+			</div>
+		</div>
     </div>
 </div>
 
@@ -67,6 +80,10 @@
 
 <!-- Easeljs -->
 <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+
+<!-- Color Picker -->
+<script src="https://unpkg.com/vue-color-picker-wheel"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
 
 <!-- App -->
 <script src="scripts/app.js"></script>
